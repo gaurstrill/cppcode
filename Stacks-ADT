@@ -1,0 +1,173 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node* next;
+}*Node;
+struct node* top=NULL;
+int stack[100],choice,n,toparr,x,i;
+
+
+void displayll(){
+    if(top==NULL){
+        printf("\nEmpty Stack\n");
+    }else{
+        printf("\nDisplaying Stacks\n");
+        struct node *temp=top;
+        while(temp->next!=NULL){
+            printf("%d ",temp->data);
+            temp=temp->next;
+        }
+        printf("\n");
+    }
+}
+
+int popll(){
+    if(top==NULL){
+        printf("\nStack is empty.\n");
+    }else{
+        struct node* temp=top;
+        int val=top->data;
+        top=top->next;
+        free(temp);
+        return val;
+    }
+}
+
+int pushll(int val){
+    struct node* newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=val;
+    if(top==NULL){
+        newnode->next=NULL;
+    }else{
+        newnode->next=top;
+    }
+    top=newnode;
+    printf("\nInserted!!\n");
+
+}
+
+
+void stacksll(){
+    int choice,val,flag=1;
+    
+    printf("\nImplementing using Linked List\n");
+    while(flag){
+        printf("1.push\n2.pop\n3.Display\n4.Exit\n");
+        printf("Enter: ");
+        scanf("%d",&choice);
+        switch(choice){
+        case 1:
+        printf("\nEnetr the value to be inserted\n");
+        scanf("%d",&val);
+        pushll(val);
+        break;
+        case 2:
+        printf("Popped element is %d\n",popll());
+        break;
+        case 3:
+        displayll();
+        break;
+        case 4:
+        flag=0;
+        break;
+        default:
+        printf("\nEnter valid choice\n");
+        }
+
+    }
+}
+void displayarr(){
+    if(toparr<0){
+        printf("Stack is empty\n");
+    }else{
+        for(i=toparr;i>=0;i--)
+            printf("%d ",stack[i]);
+        }
+        printf("\n");
+    }
+
+void pusharr(){
+    if(toparr>=n-1){
+        printf("\nstack overflow\n");
+    }else{
+        printf("Enter valu to be pushed: ");
+        scanf("%d",&x);
+        toparr++;
+        stack[toparr]=x;
+    }
+}
+
+void poparr(){
+    if(toparr<=-1){
+        printf("\nStack Underflow\n");
+    }else{
+        printf("Popped element = %d\n",stack[toparr]);
+        toparr--;
+    }
+}
+
+
+
+void stacksarr(){
+    int choice,val,flag=1;
+    toparr=-1;
+    
+
+    printf("\nImplementing using Arrays\n");
+    while(flag){
+        printf("1.push\n2.pop\n3.Display\n4.Exit\n");
+        printf("Enter: ");
+        scanf("%d",&choice);
+        switch(choice){
+        case 1:
+        pusharr();
+        break;
+        case 2:
+        poparr();
+        break;
+        case 3:
+        displayarr();
+        break;
+        case 4:
+        flag=0;
+        break;
+        default:
+        printf("\nEnter valid choice\n");
+        }
+
+    }
+
+}
+
+
+
+int main(){
+    int flag=1;
+    int choice;
+    while(flag==1){
+    printf("\n1.Implementing using Linked List\n2.Implementing using arrays.\n");
+    
+    printf("\nEnter Choice: ");
+    scanf("%d",&choice);
+    if(choice==0){
+        flag==0;
+        break;
+    }
+    
+    switch(choice)
+    {   
+    case 1:
+        stacksll();
+        break;
+    case 2:
+        stacksarr();
+    default:
+        printf("Please enter a valid input");
+    }
+
+    return 0;
+}
+}
